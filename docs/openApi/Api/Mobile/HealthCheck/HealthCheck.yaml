@@ -1,0 +1,19 @@
+get:
+  summary: 'Get Healthcheck'
+  operationId: getWHealthcheck
+  description: 'Get healthcheck for the cogify app'
+  tags:
+    - Healthcheck
+  responses:
+    200:
+      description: 'Successful response after getting json resources'
+      content:
+        text/html:
+          schema:
+            $ref: './Schemas/HealthCheckReadModel.yaml'
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../../Common/ErrorModel.yaml'
