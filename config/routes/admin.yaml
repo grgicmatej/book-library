@@ -2,3 +2,10 @@ admin.v1.book.list:
   path: /admin/v1/book
   methods: [ GET ]
   controller: App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\ListBookController
+
+admin.v1.book.get:
+  path: /admin/v1/book/{id}
+  methods: [ GET ]
+  controller: App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\GetBookController
+  requirements:
+    id: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'

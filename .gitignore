@@ -37,3 +37,7 @@ phpstan.neon
 ###< symfony/phpunit-bridge ###
 /.env.test
 /.phpunit.cache/test-results
+/.idea/book-library.iml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/php.xml

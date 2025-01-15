@@ -69,8 +69,8 @@ services:
         resource: '../src/Application/Repository/*'
 
     #Repositories
-    App\Application\Repository\Customer\CustomerReadRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\Customer\DoctrineCustomerReadRepository'
-    App\Application\Repository\Customer\CustomerWriteRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\Customer\DoctrineCustomerWriteRepository'
+    App\Application\Repository\Book\BookReadRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrineBookRepository'
+    App\Application\Repository\Book\BookWriteRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrineBookRepository'
 
     #services
     App\Application\TicketType\Service\TicketTypeByTypeNameChecker: ~
