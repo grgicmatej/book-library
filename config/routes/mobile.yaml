@@ -1,0 +1,4 @@
+v1.mobile.healthcheck.get:
+  methods: GET
+  path: mobile/v1/healthcheck
+  controller: App\Infrastructure\Driving\Http\Mobile\v1\Endpoint\HealthCheck\GetHealthCheckController

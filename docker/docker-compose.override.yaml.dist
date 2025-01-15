@@ -1,0 +1,18 @@
+services:
+  php:
+    volumes:
+      - '..:/opt/app'
+    build:
+      args:
+        XDEBUG_ENABLED: 'true'
+
+  nginx:
+    volumes:
+      - '..:/opt/app'
+    ports:
+      - "8000:80"
+
+  db:
+    hostname: "cogify"
+    ports:
+      - "5432:5432"

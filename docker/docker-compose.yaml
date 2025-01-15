@@ -1,0 +1,38 @@
+services:
+  nginx:
+    build:
+      context: ../
+      dockerfile: docker/services/nginx/nginx.Dockerfile
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: ../
+      dockerfile: docker/services/php/php.Dockerfile
+      target: dev
+      args:
+        XDEBUG_ENABLED: 'false'
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16.1
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./services/db/init.sh:/docker-entrypoint-initdb.d/init.sh
+    environment:
+      POSTGRES_ROOT_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+volumes:
+  db_data:

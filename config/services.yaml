@@ -1,0 +1,76 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    App\Infrastructure\Driving\Http\Mobile\v1\Endpoint\:
+        resource: '../src/Infrastructure/Driving/Http/Mobile/v1/Endpoint/*'
+        tags: [ 'controller.service_arguments' ]
+
+    App\Infrastructure\Driving\Http\Admin\v1\Endpoint\:
+        resource: '../src/Infrastructure/Driving/Http/Admin/v1/Endpoint/*'
+        tags: [ 'controller.service_arguments' ]
+
+    App\Infrastructure\Driving\Http\Mobile\v1\ApiResponder\:
+        resource: '../src/Infrastructure/Driving/Http/Mobile/v1/ApiResponder/*'
+
+    App\Infrastructure\Driving\Http\Admin\v1\ApiResponder\:
+        resource: '../src/Infrastructure/Driving/Http/Admin/v1/ApiResponder/*'
+
+    App\Infrastructure\Driven\EventSubscriber\ExceptionSubscriber:
+        tags: [ 'kernel.event_subscriber' ]
+
+    App\Application\Bus\QueryBus:
+        alias: App\Infrastructure\Driven\Bus\MessengerQueryBus
+
+    App\Application\Bus\CommandBus:
+        alias: App\Infrastructure\Driven\Bus\MessengerCommandBus
+
+    App\Application\Bus\EventBus:
+        alias: App\Infrastructure\Driven\Bus\MessengerEventBus
+
+    App\Infrastructure\Driven\Persistence\Doctrine\Fixture\:
+        resource: '../src/Infrastructure/Driven/Persistence/Doctrine/Fixture/*'
+
+    App\Infrastructure\Driven\Bus\:
+        resource: '../src/Infrastructure/Driven/Bus/*'
+
+    App\Infrastructure\Driven\RequestHandler\:
+        resource: '../src/Infrastructure/Driven/RequestHandler/*'
+
+    App\Infrastructure\Driven\QueryHandler\:
+        resource: '../src/Infrastructure/Driven/QueryHandler/*'
+        autoconfigure: false
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+
+    #Clock
+    App\Infrastructure\Driven\Clock\SystemTimeClock: ~
+    App\Application\Clock\ClockGenerator: '@App\Infrastructure\Driven\Clock\SystemTimeClock'
+
+    App\Application\CommandHandler\:
+        resource: '../src/Application/CommandHandler/*'
+        autoconfigure: false
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+
+    App\Infrastructure\Driven\Persistence\Doctrine\Repository\:
+        resource: '../src/Infrastructure/Driven/Persistence/Doctrine/Repository/*'
+
+    App\Application\Repository\:
+        resource: '../src/Application/Repository/*'
+
+    #Repositories
+    App\Application\Repository\Customer\CustomerReadRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\Customer\DoctrineCustomerReadRepository'
+    App\Application\Repository\Customer\CustomerWriteRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\Customer\DoctrineCustomerWriteRepository'
+
+    #services
+    App\Application\TicketType\Service\TicketTypeByTypeNameChecker: ~

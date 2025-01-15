@@ -1,0 +1,13 @@
+openapi: "3.0.0"
+info:
+  description: cogify API docs
+  version: "1.0.0"
+  title: cogify
+
+servers:
+  - url: https://localhost
+    description: Local
+
+paths:
+  /mobile/v1/healthcheck:
+    $ref: './Api/Mobile/HealthCheck/HealthCheck.yaml'

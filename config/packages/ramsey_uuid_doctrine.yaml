@@ -1,0 +1,6 @@
+doctrine:
+    dbal:
+        types:
+            uuid: 'Ramsey\Uuid\Doctrine\UuidType'
+            bookId: 'App\Infrastructure\Driven\DatabaseIdentifier\Doctrine\BookIdType'
+            authorId: 'App\Infrastructure\Driven\DatabaseIdentifier\Doctrine\AuthorIdType'

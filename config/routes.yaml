@@ -1,0 +1,5 @@
+v1.mobile:
+    resource: routes/mobile.yaml
+
+v1.admin:
+    resource: routes/admin.yaml

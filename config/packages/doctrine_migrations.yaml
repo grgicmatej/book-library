@@ -1,0 +1,6 @@
+doctrine_migrations:
+    migrations_paths:
+        'App\Infrastructure\Driven\Persistence\Doctrine\Migrations': '%kernel.project_dir%/src/Infrastructure/Driven/Persistence/Doctrine/Migrations'
+    storage:
+        table_storage:
+            table_name: 'migration_versions'

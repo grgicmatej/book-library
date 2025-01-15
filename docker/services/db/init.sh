@@ -1,0 +1,2 @@
+postgres -u$POSTGRES_USER -p$POSTGRES_PASSWORD --execute \
+"CREATE DATABASE test;"

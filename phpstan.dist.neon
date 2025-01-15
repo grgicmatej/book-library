@@ -1,0 +1,11 @@
+parameters:
+    inferPrivatePropertyTypeFromConstructor: true
+    checkGenericClassInNonGenericObjectType: false
+    treatPhpDocTypesAsCertain: false
+    level: max
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - */Migrations/*
+        - */Fixture/*
