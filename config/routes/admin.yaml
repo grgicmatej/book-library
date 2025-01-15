@@ -1,0 +1,4 @@
+admin.v1.book.list:
+  path: /admin/v1/book
+  methods: [ GET ]
+  controller: App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\ListBookController

@@ -1,0 +1,29 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Book\Book" table="books">
+        <id name="id" column="id" type="bookId" />
+        <embedded name="isbn" class="App\Domain\Book\VO\Isbn" use-column-prefix="false" />
+        <embedded name="title" class="App\Domain\Book\VO\Title" use-column-prefix="false" />
+
+        <many-to-many field="authors" inversed-by="books" target-entity="App\Domain\Author\Author">
+            <join-table name="books_authors">
+                <join-columns>
+                    <join-column name="book_id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="author_id" />
+                </inverse-join-columns>
+            </join-table>
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </many-to-many>
+
+        <embedded name="year" class="App\Domain\Book\VO\Year" use-column-prefix="false" />
+        <embedded name="genre" class="App\Domain\Book\VO\Genre" use-column-prefix="false" />
+
+    </entity>
+</doctrine-mapping>
