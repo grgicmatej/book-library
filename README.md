@@ -20,9 +20,11 @@ cd book-lib
 make build
 ```
 
-1.3.1. Copy `.env.dist` to  `.env`  
+// this is already done and left on github on purpose
+1.3.1. Copy `.env.dist` to  `.env`
 1.3.2. Copy `.env.local.dist` to `.env.local`  
 1.3.3. Edit database values in both files
+//end
 
 1.4 Start Docker Services:
 ```
@@ -56,11 +58,6 @@ composer test-check
 3.2 Run quality control tests inside php container:
 ```
 composer code-check
-```
-
-3.3. Run complete code check via makefile:
-```
-make complete-check
 ```
 
 ### Customization

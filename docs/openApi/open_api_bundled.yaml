@@ -1,0 +1,526 @@
+openapi: 3.0.0
+info:
+  description: cogify API docs
+  version: 1.0.0
+  title: cogify
+servers:
+  - url: 'https://localhost'
+    description: Local
+paths:
+  /mobile/v1/healthcheck:
+    get:
+      summary: Get Healthcheck
+      operationId: getWHealthcheck
+      description: Get healthcheck for the cogify app
+      tags:
+        - Healthcheck
+      responses:
+        '200':
+          description: Successful response after getting json resources
+          content:
+            text/html:
+              schema:
+                type: string
+                example: online
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  '/admin/v1/book/{id}':
+    patch:
+      summary: Update One Book
+      operationId: updateOneBook
+      description: Update One Book
+      tags:
+        - book
+      responses:
+        '200':
+          description: 'Successful response after creating JSON:API resources'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - type
+                      - attributes
+                      - relationships
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: 5d2a2856-f981-4fa4-9070-4e54e92d64ff
+                      type:
+                        type: string
+                        example: book
+                        default: book
+                      attributes:
+                        type: object
+                        required:
+                          - isbn
+                          - title
+                          - year
+                          - genre
+                        properties:
+                          isbn:
+                            type: string
+                            nullable: false
+                            example: 978-9-4814-4380-3
+                          title:
+                            type: string
+                            nullable: false
+                            example: PHP for babies
+                          year:
+                            type: integer
+                            nullable: false
+                            example: 1994
+                          genre:
+                            type: string
+                            nullable: false
+                            example: Action
+                      relationships:
+                        type: object
+                        required:
+                          - authors
+                        properties:
+                          ticketType:
+                            type: object
+                            required:
+                              - data
+                            properties:
+                              data:
+                                type: object
+                                nullable: false
+                                properties:
+                                  type:
+                                    type: string
+                                    nullable: false
+                                    example: author
+                                    default: author
+                                  id:
+                                    type: string
+                                    nullable: false
+                                    example: b7138502-0483-433a-856b-ddb05d0aee46
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: error message
+      requestBody:
+        description: Book create model
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: object
+                  required:
+                    - id
+                    - type
+                    - attributes
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      example: b7138502-0483-433a-856b-ddb05d0aee46
+                    type:
+                      type: string
+                      example: book
+                      default: book
+                    attributes:
+                      type: object
+                      required:
+                        - isbn
+                        - title
+                        - year
+                        - genre
+                        - authorIds
+                      properties:
+                        isbn:
+                          type: string
+                          nullable: false
+                          example: 978-9-4814-4380-3
+                        title:
+                          type: string
+                          nullable: false
+                          example: PHP for babies
+                        year:
+                          type: integer
+                          nullable: false
+                          example: 1994
+                        genre:
+                          type: string
+                          nullable: false
+                          example: Action
+                        authorIds:
+                          type: array
+    get:
+      summary: Retrieve One Book
+      operationId: getOneBook
+      description: Retrieve One Book
+      tags:
+        - Book
+      responses:
+        '200':
+          description: Successful response after getting resource
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - type
+                      - attributes
+                      - relationships
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: 5d2a2856-f981-4fa4-9070-4e54e92d64ff
+                      type:
+                        type: string
+                        example: book
+                        default: book
+                      attributes:
+                        type: object
+                        required:
+                          - isbn
+                          - title
+                          - year
+                          - genre
+                        properties:
+                          isbn:
+                            type: string
+                            nullable: false
+                            example: 978-9-4814-4380-3
+                          title:
+                            type: string
+                            nullable: false
+                            example: PHP for babies
+                          year:
+                            type: integer
+                            nullable: false
+                            example: 1994
+                          genre:
+                            type: string
+                            nullable: false
+                            example: Action
+                      relationships:
+                        type: object
+                        required:
+                          - authors
+                        properties:
+                          ticketType:
+                            type: object
+                            required:
+                              - data
+                            properties:
+                              data:
+                                type: object
+                                nullable: false
+                                properties:
+                                  type:
+                                    type: string
+                                    nullable: false
+                                    example: author
+                                    default: author
+                                  id:
+                                    type: string
+                                    nullable: false
+                                    example: b7138502-0483-433a-856b-ddb05d0aee46
+        '404':
+          description: Resource not found
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: error message
+    delete:
+      summary: Delete one Book
+      operationId: deleteOneBook
+      description: Delete One Book
+      tags:
+        - Book
+      responses:
+        '204':
+          description: The resource was deleted successfully.
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: error message
+  /admin/v1/book:
+    get:
+      summary: Get list of books
+      operationId: listBook
+      description: Get list of books
+      tags:
+        - Book
+      responses:
+        '200':
+          description: 'Successful response after getting list of JSON:API resources'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - type
+                        - attributes
+                        - relationships
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: 5d2a2856-f981-4fa4-9070-4e54e92d64ff
+                        type:
+                          type: string
+                          example: book
+                          default: book
+                        attributes:
+                          type: object
+                          required:
+                            - isbn
+                            - title
+                            - year
+                            - genre
+                          properties:
+                            isbn:
+                              type: string
+                              nullable: false
+                              example: 978-9-4814-4380-3
+                            title:
+                              type: string
+                              nullable: false
+                              example: PHP for babies
+                            year:
+                              type: integer
+                              nullable: false
+                              example: 1994
+                            genre:
+                              type: string
+                              nullable: false
+                              example: Action
+                        relationships:
+                          type: object
+                          required:
+                            - authors
+                          properties:
+                            ticketType:
+                              type: object
+                              required:
+                                - data
+                              properties:
+                                data:
+                                  type: object
+                                  nullable: false
+                                  properties:
+                                    type:
+                                      type: string
+                                      nullable: false
+                                      example: author
+                                      default: author
+                                    id:
+                                      type: string
+                                      nullable: false
+                                      example: b7138502-0483-433a-856b-ddb05d0aee46
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: error message
+    post:
+      summary: Create book
+      operationId: createBook
+      description: Create book
+      tags:
+        - Book
+      responses:
+        '201':
+          description: 'Successful response after creating JSON:API resources'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                required:
+                  - data
+                properties:
+                  data:
+                    type: object
+                    required:
+                      - id
+                      - type
+                      - attributes
+                      - relationships
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: 5d2a2856-f981-4fa4-9070-4e54e92d64ff
+                      type:
+                        type: string
+                        example: book
+                        default: book
+                      attributes:
+                        type: object
+                        required:
+                          - isbn
+                          - title
+                          - year
+                          - genre
+                        properties:
+                          isbn:
+                            type: string
+                            nullable: false
+                            example: 978-9-4814-4380-3
+                          title:
+                            type: string
+                            nullable: false
+                            example: PHP for babies
+                          year:
+                            type: integer
+                            nullable: false
+                            example: 1994
+                          genre:
+                            type: string
+                            nullable: false
+                            example: Action
+                      relationships:
+                        type: object
+                        required:
+                          - authors
+                        properties:
+                          ticketType:
+                            type: object
+                            required:
+                              - data
+                            properties:
+                              data:
+                                type: object
+                                nullable: false
+                                properties:
+                                  type:
+                                    type: string
+                                    nullable: false
+                                    example: author
+                                    default: author
+                                  id:
+                                    type: string
+                                    nullable: false
+                                    example: b7138502-0483-433a-856b-ddb05d0aee46
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - error
+                properties:
+                  error:
+                    type: string
+                    example: error message
+      requestBody:
+        description: Book create model
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  type: object
+                  required:
+                    - type
+                    - attributes
+                  properties:
+                    type:
+                      type: string
+                      example: book
+                      default: book
+                    attributes:
+                      type: object
+                      required:
+                        - isbn
+                        - title
+                        - year
+                        - genre
+                        - authorIds
+                      properties:
+                        isbn:
+                          type: string
+                          nullable: false
+                          example: 978-9-4814-4380-3
+                        title:
+                          type: string
+                          nullable: false
+                          example: PHP for babies
+                        year:
+                          type: integer
+                          nullable: false
+                          example: 1994
+                        genre:
+                          type: string
+                          nullable: false
+                          example: Action
+                        authorIds:
+                          type: array
