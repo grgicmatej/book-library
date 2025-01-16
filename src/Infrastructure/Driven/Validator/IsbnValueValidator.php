@@ -13,6 +13,7 @@ class IsbnValueValidator implements IsbnValidator
     {
         $isbn = new Isbn();
 
+        $isbnValue = $isbn->hyphens->removeHyphens($isbnValue);
         if ($isbn->validation->isbn($isbnValue)) {
             return true;
         }

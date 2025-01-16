@@ -46,6 +46,7 @@
         <exclude>
             <directory>src/Application/CommandHandler</directory>
             <directory>src/Infrastructure/Driving/Http/Mobile/v1/Endpoint</directory>
+            <directory>vendor</directory>
         </exclude>
     </source>
 

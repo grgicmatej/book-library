@@ -1,0 +1,63 @@
+get:
+  summary: 'Get list of books'
+  operationId: listBook
+  description: 'Get list of books'
+  tags:
+    - Book
+  responses:
+    200:
+      description: 'Successful response after getting list of JSON:API resources'
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: './Schemas/BookReadModel.yaml'
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../../Common/ErrorModel.yaml'
+
+post:
+  summary: 'Create book'
+  operationId: createBook
+  description: 'Create book'
+  tags:
+    - Book
+  responses:
+    201:
+      description: 'Successful response after creating JSON:API resources'
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: './Schemas/BookReadModel.yaml'
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../../Common/ErrorModel.yaml'
+  requestBody:
+    description: 'Book create model'
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: './Schemas/BookWriteModel.yaml'

@@ -1,0 +1,36 @@
+type: object
+required:
+  - type
+  - attributes
+properties:
+  type:
+    type: string
+    example: book
+    default: book
+  attributes:
+    type: object
+    required:
+      - isbn
+      - title
+      - year
+      - genre
+      - authorIds
+    properties:
+      isbn:
+        type: string
+        nullable: false
+        example: 978-9-4814-4380-3
+      title:
+        type: string
+        nullable: false
+        example: 'PHP for babies'
+      year:
+        type: integer
+        nullable: false
+        example: 1994
+      genre:
+        type: string
+        nullable: false
+        example: 'Action'
+      authorIds:
+        type: array

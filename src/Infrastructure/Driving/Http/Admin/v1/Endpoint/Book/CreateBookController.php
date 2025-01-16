@@ -34,7 +34,7 @@ final class CreateBookController
         $command = new CreateBookCommand(
             $nextId->id,
             $bookModel->title,
-            $bookModel->title,
+            $bookModel->isbn,
             $bookModel->year,
             $bookModel->genre,
             $bookModel->authorIds

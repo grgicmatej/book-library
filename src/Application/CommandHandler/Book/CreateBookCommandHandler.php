@@ -27,7 +27,7 @@ final readonly class CreateBookCommandHandler
 
     public function __invoke(CreateBookCommand $command): void
     {
-        if (false === !$this->isbnValidator->validateIsbn($command->isbn)) {
+        if (false === $this->isbnValidator->validateIsbn($command->isbn)) {
             throw new InvalidArgumentTranslatableException('errors.invalid_param.isbn');
         }
 

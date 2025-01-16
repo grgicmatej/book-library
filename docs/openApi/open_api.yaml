@@ -11,3 +11,8 @@ servers:
 paths:
   /mobile/v1/healthcheck:
     $ref: './Api/Mobile/HealthCheck/HealthCheck.yaml'
+
+  /admin/v1/book/{id}:
+    $ref: './Api/Admin/Book/BookById.yaml'
+  /admin/v1/book:
+    $ref: './Api/Admin/Book/Book.yaml'

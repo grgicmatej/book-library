@@ -1,0 +1,79 @@
+patch:
+  summary: 'Update One Book'
+  operationId: updateOneBook
+  description: 'Update One Book'
+  tags:
+    - book
+  responses:
+    200:
+      description: 'Successful response after creating JSON:API resources'
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: './Schemas/BookReadModel.yaml'
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../../Common/ErrorModel.yaml'
+  requestBody:
+    description: 'Book create model'
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: './Schemas/BookUpdateWriteModel.yaml'
+
+get:
+  summary: 'Retrieve One Book'
+  operationId: getOneBook
+  description: 'Retrieve One Book'
+  tags:
+    - Book
+  responses:
+    200:
+      description: 'Successful response after getting resource'
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                $ref: './Schemas/BookReadModel.yaml'
+    404:
+      description: 'Resource not found'
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../../Common/ErrorModel.yaml'
+
+delete:
+  summary: 'Delete one Book'
+  operationId: deleteOneBook
+  description: 'Delete One Book'
+  tags:
+    - Book
+  responses:
+    204:
+      description: The resource was deleted successfully.
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: '../../../Common/ErrorModel.yaml'

@@ -1,0 +1,47 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+  - relationships
+properties:
+  id:
+    type: string
+    format: uuid
+    example: c223d89e-c040-43e2-83af-c644903f9d6a
+  type:
+    type: string
+    example: author
+    default: author
+  attributes:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        nullable: false
+        example: 'Lorem ipsumName'
+  relationships:
+    type: object
+    required:
+      - books
+    properties:
+      ticketType:
+        type: object
+        required:
+          - data
+        properties:
+          data:
+            type: object
+            nullable: false
+            properties:
+              type:
+                type: string
+                nullable: false
+                example: book
+                default: book
+              id:
+                type: string
+                nullable: false
+                example: 5d2a2856-f981-4fa4-9070-4e54e92d64ff

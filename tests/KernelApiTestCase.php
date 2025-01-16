@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use App\Infrastructure\Driven\Persistence\Doctrine\Fixture\AuthorFixture;
+use App\Infrastructure\Driven\Persistence\Doctrine\Fixture\BookFixture;
 use GuzzleHttp\Psr7\Request;
-use League\OpenAPIValidation\PSR7\ValidatorBuilder;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\Small;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -23,24 +27,36 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
  * test mode and because it never creates
  * API calls it is relatively fast.
  */
-abstract class KernelApiTestCase extends WebTestCase implements EndpointKernelTestCase
+#[CoversNothing]
+#[Small]
+abstract class KernelApiTestCase extends WebTestCase implements EndpointTestCase
 {
-    use EndpointKernelTestCaseTrait;
-
-    protected static ValidatorBuilder $validatorBuilder;
+    use EndpointTestCaseTrait;
 
     protected static KernelBrowser $client;
 
     /** @var array<string,string> */
     protected static array $accessToken = [];
 
+    protected static FixtureLoader $fixturesLoader;
+
+    protected static bool $areFixturesLoaded = false;
+
     public static function setUpBeforeClass(): void
     {
-        /** @var KernelBrowser $client */
-        $client = static::getContainer()->get('test.client');
-        self::$client = $client;
-
+        if (false === isset(static::$client)) {
+            self::$client = static::createClient();
+        }
+        if (null === static::$kernel) {
+            static::bootKernel();
+        }
         self::$validatorBuilder = self::createValidatorBuilder();
+
+        if (false === self::$areFixturesLoaded) {
+            self::$fixturesLoader = new FixtureLoader(self::getContainer());
+            self::$fixturesLoader->load(...self::fixturesToLoad());
+            self::$areFixturesLoaded = true;
+        }
     }
 
     protected function setUp(): void
@@ -56,7 +72,6 @@ abstract class KernelApiTestCase extends WebTestCase implements EndpointKernelTe
         int $expectedStatusCode
     ): void {
         $this->validateRequest($request);
-
         $response = $this->sendRequest($request);
 
         $psr17Factory = new Psr17Factory();
@@ -67,26 +82,18 @@ abstract class KernelApiTestCase extends WebTestCase implements EndpointKernelTe
         static::assertSame($expectedStatusCode, $response->getStatusCode());
     }
 
-    /** @param array<string, null|int|string> $queryParamKeyValues */
-    public function parseQueryParameters(array $queryParamKeyValues): string
+    /** @return array<int,string> */
+    protected static function fixturesToLoad(): array
     {
-        $queryParams = '?';
-
-        foreach ($queryParamKeyValues as $param => $paramValue) {
-            $queryParams .= $param . '=' . $paramValue . '&';
-        }
-
-        return rtrim($queryParams, '&');
+        return [
+            BookFixture::class,
+            AuthorFixture::class,
+        ];
     }
 
-    protected function validatorBuilder(): ValidatorBuilder
+    protected static function getContainerInstance(): ContainerInterface
     {
-        return self::$validatorBuilder;
-    }
-
-    protected static function createValidatorBuilder(): ValidatorBuilder
-    {
-        return (new ValidatorBuilder())->fromYamlFile(__DIR__ . '/../docs/openApi/open_api_bundled.yaml');
+        return static::getContainer();
     }
 
     protected function createRequest(
@@ -110,16 +117,6 @@ abstract class KernelApiTestCase extends WebTestCase implements EndpointKernelTe
         );
 
         return self::$client->getResponse();
-    }
-
-    /**
-     * @param array<mixed> $body
-     *
-     * @throws \JsonException
-     */
-    protected function prepareJsonBody(array $body): string
-    {
-        return json_encode($body, JSON_THROW_ON_ERROR);
     }
 
     /** @return array<string, string> */

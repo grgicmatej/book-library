@@ -1,0 +1,62 @@
+type: object
+required:
+  - id
+  - type
+  - attributes
+  - relationships
+properties:
+  id:
+    type: string
+    format: uuid
+    example: 5d2a2856-f981-4fa4-9070-4e54e92d64ff
+  type:
+    type: string
+    example: book
+    default: book
+  attributes:
+    type: object
+    required:
+      - isbn
+      - title
+      - year
+      - genre
+    properties:
+      isbn:
+        type: string
+        nullable: false
+        example: 978-9-4814-4380-3
+      title:
+        type: string
+        nullable: false
+        example: 'PHP for babies'
+      year:
+        type: integer
+        nullable: false
+        example: 1994
+      genre:
+        type: string
+        nullable: false
+        example: 'Action'
+  relationships:
+    type: object
+    required:
+      - authors
+    properties:
+      ticketType:
+        type: object
+        required:
+          - data
+        properties:
+          data:
+            type: object
+            nullable: false
+            properties:
+              type:
+                type: string
+                nullable: false
+                example: author
+                default: author
+              id:
+                type: string
+                nullable: false
+                example: b7138502-0483-433a-856b-ddb05d0aee46

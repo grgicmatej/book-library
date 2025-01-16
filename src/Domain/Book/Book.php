@@ -55,6 +55,7 @@ class Book
         return $this->genre;
     }
 
+    /** @param  Collection<int, Author> $authors */
     public function update(
         Isbn $isbn,
         Title $title,
