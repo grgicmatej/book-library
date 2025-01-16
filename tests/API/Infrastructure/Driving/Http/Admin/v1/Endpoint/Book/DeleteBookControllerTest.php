@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\API\Infrastructure\Driving\Http\Admin\v1\Endpoint;
+namespace App\tests\API\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book;
 
 use App\Infrastructure\Driven\Persistence\Doctrine\Fixture\BookFixture;
 use App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\GetBookController;
@@ -14,20 +14,20 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[CoversClass(GetBookController::class)]
 #[Small]
-final class GetBookControllerTest extends KernelApiTestCase
+final class DeleteBookControllerTest extends KernelApiTestCase
 {
     public function testGetBookControllerInvokeWillReturn200GivenRequestIsValid(): void
     {
         $request = new Request(
-            self::GET,
-            sprintf('/admin/v1/book/%s', BookFixture::ids()[0]),
+            self::DELETE,
+            sprintf('/admin/v1/book/%s', BookFixture::ids()[1]),
             [],
         );
 
         $this->validateEndpoint(
             $request,
-            sprintf('/admin/v1/book/%s', BookFixture::ids()[0]),
-            Response::HTTP_OK,
+            sprintf('/admin/v1/book/%s', BookFixture::ids()[1]),
+            Response::HTTP_NO_CONTENT,
         );
     }
 }

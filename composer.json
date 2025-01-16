@@ -98,6 +98,9 @@
         "test-unit": [
             "php -d memory_limit=-1 vendor/bin/phpunit --colors=always --testdox --testsuite Unit"
         ],
+        "test-functional": [
+            "php -d memory_limit=-1 vendor/bin/phpunit --colors=always --testdox --testsuite Functional --bootstrap tests/phpunit.bootstrap.php"
+        ],
         "coverage": [
             "php -d memory_limit=-1 -d xdebug.mode=coverage  vendor/bin/phpunit --testdox --testsuite Unit --coverage-text"
         ],
@@ -115,7 +118,8 @@
         "test-check": [
             "@test-unit",
             "@test-integration",
-            "@test-api"
+            "@test-api",
+            "@test-functional"
         ],
         "test-api-one": [
             "php -d memory_limit=-1 vendor/bin/phpunit --colors=always --testdox --bootstrap tests/phpunit.bootstrap.php --filter testCreateBookControllerInvokeWillReturn200GivenRequestIsValid"

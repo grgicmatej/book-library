@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\API\Infrastructure\Driving\Http\Admin\v1\Endpoint;
+namespace App\tests\API\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book;
 
 use App\Infrastructure\Driven\Persistence\Doctrine\Fixture\AuthorFixture;
 use App\Infrastructure\Driven\Persistence\Doctrine\Fixture\BookFixture;
