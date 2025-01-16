@@ -16,8 +16,7 @@ final class ListBookController
         ResourceResponder $responder,
         GetResourceCollectionRequestInterface $request,
         QueryBus $queryBus,
-    ): ResourceCollectionResponse
-    {
+    ): ResourceCollectionResponse {
         $pagination = $request->getPagination();
 
         $books = $queryBus->handleQuery(new ListBooksQuery(

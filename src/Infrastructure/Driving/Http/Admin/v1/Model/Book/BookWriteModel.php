@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Driving\Http\Admin\v1\Model\Book;
 
-use App\Domain\Author\Author;
 use App\Domain\Book\Book;
 use Undabot\SymfonyJsonApi\Model\ApiModel;
 use Undabot\SymfonyJsonApi\Model\Resource\Annotation\Attribute;
-use Undabot\SymfonyJsonApi\Model\Resource\Annotation\ToMany;
 use Undabot\SymfonyJsonApi\Service\Resource\Validation\Constraint\ResourceType;
 
 /** @ResourceType(type="book") */
-final readonly class BookReadModel implements ApiModel
+final readonly class BookWriteModel implements ApiModel
 {
     public function __construct(
         public string $id,
@@ -25,24 +23,10 @@ final readonly class BookReadModel implements ApiModel
         /** @Attribute */
         public string $genre,
         /**
-         * @var array<int,string>
+         * @Attribute
          *
-         * @ToMany (name="authors", type="author")
+         * @var array<int,string>
          */
         public array $authorIds,
     ) {}
-
-    public static function fromEntity(Book $book): self
-    {
-        return new self(
-            (string) $book->id(),
-            $book->isbn()->isbn,
-            $book->title()->title,
-            $book->year()->year(),
-            $book->genre()->genre,
-            $book->authors()->map(static function (Author $author): string {
-                return (string) $author->id();
-            })->toArray(),
-        );
-    }
 }

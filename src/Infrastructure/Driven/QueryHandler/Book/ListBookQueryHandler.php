@@ -8,6 +8,7 @@ use App\Application\Query\Book\ListBooksQuery;
 use App\Domain\Book\Book;
 use App\Infrastructure\Driven\QueryHandler\DoctrineQueryHandler;
 use Undabot\SymfonyJsonApi\Model\Collection\ObjectCollection;
+
 final readonly class ListBookQueryHandler extends DoctrineQueryHandler
 {
     public function __invoke(ListBooksQuery $query): ObjectCollection

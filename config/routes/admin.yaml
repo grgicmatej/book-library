@@ -9,3 +9,22 @@ admin.v1.book.get:
   controller: App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\GetBookController
   requirements:
     id: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+
+admin.v1.book.create:
+  path: /admin/v1/book
+  methods: [ POST ]
+  controller: App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\CreateBookController
+
+admin.v1.book.delete:
+  path: /admin/v1/book/{id}
+  methods: [ DELETE ]
+  controller: App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\DeleteBookController
+  requirements:
+    id: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+
+admin.v1.book.update:
+  path: /admin/v1/book/{id}
+  methods: [ PATCH ]
+  controller: App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book\UpdateBookController
+  requirements:
+    id: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'

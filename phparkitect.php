@@ -14,7 +14,9 @@ use Arkitect\Expression\ForClasses\ResideInOneOfTheseNamespaces;
 use Arkitect\Rules\Rule;
 
 return static function (Config $config): void {
-    $allowedVendors = ['Symfony\Component\Uid\Uuid', 'Assert', 'Doctrine\Common\Collections', 'DateTimeImmutable', 'DateTimeInterface', 'DateTime', 'Exception', 'Doctrine\ORM\EntityManagerInterface', 'Doctrine\ORM\EntityNotFoundException'];
+    $allowedVendors = ['Symfony\Component\Uid\Uuid', 'Assert', 'Doctrine\Common\Collections', 'DateTimeImmutable',
+        'DateTimeInterface', 'DateTime', 'Exception', 'Doctrine\ORM\EntityManagerInterface',
+        'Doctrine\ORM\EntityNotFoundException', 'Undabot\SymfonyJsonApi\Model\Collection\ObjectCollection'];
     $srcClassSet = ClassSet::fromDir(__DIR__ . '/src');
 
     $rules = [];

@@ -21,9 +21,7 @@ final class DoctrineBookRepository extends ServiceEntityRepository implements Bo
         parent::__construct($registry, Book::class);
     }
 
-    /**
-     * @throws BookNotFoundException
-     */
+    /** @throws BookNotFoundException */
     public function get(BookId $id): Book
     {
         /** @var null|Book $book */
@@ -44,6 +42,12 @@ final class DoctrineBookRepository extends ServiceEntityRepository implements Bo
     public function save(Book $book): void
     {
         $this->_em->persist($book);
+        $this->_em->flush();
+    }
+
+    public function delete(Book $book): void
+    {
+        $this->_em->remove($book);
         $this->_em->flush();
     }
 }

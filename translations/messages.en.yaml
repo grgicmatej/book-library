@@ -1,3 +1,5 @@
 errors:
     invalid_argument:
         clock_timestamp_must_have_max_length_10: "Clock timestamp must have max length 10"
+    invalid_param:
+        isbn: "ISBN is invalid"

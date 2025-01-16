@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Driving\Http\Admin\v1\Endpoint\Book;
 
+use App\Application\Repository\Book\BookReadRepository;
 use App\Domain\Book\Book;
 use App\Domain\Book\VO\BookId;
 use App\Infrastructure\Driving\Http\Admin\v1\ApiResponder\ResourceResponder;
-use App\Application\Repository\Book\BookReadRepository;
 use Undabot\SymfonyJsonApi\Http\Model\Response\ResourceResponse;
 use Undabot\SymfonyJsonApi\Model\Collection\UniqueCollection;
 
@@ -17,8 +17,7 @@ final class GetBookController
         string $id,
         ResourceResponder $responder,
         BookReadRepository $bookReadRepository
-    ): ResourceResponse
-    {
+    ): ResourceResponse {
         $book = $bookReadRepository->get(BookId::fromString($id));
 
         return $responder->resource($book, $this->getIncludedItems($book)->getItems());

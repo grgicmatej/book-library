@@ -9,4 +9,6 @@ use App\Domain\Book\Book;
 interface BookWriteRepository
 {
     public function save(Book $book): void;
+
+    public function delete(Book $book): void;
 }

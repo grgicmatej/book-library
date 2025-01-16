@@ -54,4 +54,18 @@ class Book
     {
         return $this->genre;
     }
+
+    public function update(
+        Isbn $isbn,
+        Title $title,
+        Collection $authors,
+        Year $year,
+        Genre $genre
+    ): void {
+        $this->isbn = $isbn;
+        $this->title = $title;
+        $this->authors = $authors;
+        $this->year = $year;
+        $this->genre = $genre;
+    }
 }

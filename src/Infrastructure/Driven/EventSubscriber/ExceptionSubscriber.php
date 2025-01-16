@@ -30,7 +30,6 @@ final class ExceptionSubscriber implements EventSubscriberInterface
     public function buildErrorResponse(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
-        dd($exception);
         $response = match (true) {
             $exception instanceof AccessDeniedException,
             $exception instanceof UnauthorizedHttpException => new JsonResponse(

@@ -72,5 +72,9 @@ services:
     App\Application\Repository\Book\BookReadRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrineBookRepository'
     App\Application\Repository\Book\BookWriteRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrineBookRepository'
 
+    App\Application\Repository\Author\AuthorReadRepository: '@App\Infrastructure\Driven\Persistence\Doctrine\Repository\DoctrineAuthorRepository'
+
     #services
-    App\Application\TicketType\Service\TicketTypeByTypeNameChecker: ~
+    App\Application\Service\Author\AuthorFinder: ~
+    App\Infrastructure\Driven\Validator\IsbnValueValidator: ~
+    App\Application\Validator\Isbn\IsbnValidator: '@App\Infrastructure\Driven\Validator\IsbnValueValidator'

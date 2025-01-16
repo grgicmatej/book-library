@@ -8,7 +8,7 @@ abstract class EntityNotFoundException extends \Exception
 {
     public function __construct(string $id)
     {
-        $message = \sprintf('%s with Id %s not found', $this->getClassName(), $id);
+        $message = sprintf('%s with Id %s not found', $this->getClassName(), $id);
 
         parent::__construct($message, 404);
     }

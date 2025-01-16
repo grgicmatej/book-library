@@ -35,7 +35,10 @@
         "symfony/serializer": "^7.0",
         "symfony/validator": "^6.0",
         "symfony/twig-bundle": "^7.0",
-        "undabot/json-api-symfony": "v2.4.0.x-dev"
+        "undabot/json-api-symfony": "v2.4.0.x-dev",
+        "fale/isbn": "^3.1",
+        "ramsey/uuid": "^4.7",
+        "ramsey/uuid-doctrine": "^2.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

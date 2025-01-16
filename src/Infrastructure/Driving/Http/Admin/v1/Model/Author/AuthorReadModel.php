@@ -8,8 +8,8 @@ use App\Domain\Author\Author;
 use App\Domain\Book\Book;
 use Undabot\SymfonyJsonApi\Model\ApiModel;
 use Undabot\SymfonyJsonApi\Model\Resource\Annotation\Attribute;
-use Undabot\SymfonyJsonApi\Service\Resource\Validation\Constraint\ResourceType;
 use Undabot\SymfonyJsonApi\Model\Resource\Annotation\ToMany;
+use Undabot\SymfonyJsonApi\Service\Resource\Validation\Constraint\ResourceType;
 
 /** @ResourceType(type="author") */
 final readonly class AuthorReadModel implements ApiModel
